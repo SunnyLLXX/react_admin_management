@@ -1,0 +1,30 @@
+.login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #006699;
+}
+.centerlogin {
+    width: 500px;
+    height: 400px;
+    background-color: #fff;
+    text-align: center;
+}
+.title {
+    margin: 40px 0;
+}
+.inputItem {
+    width: 90%;
+}
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.login-form-button {
+    width: 60%;
+    margin-top: 20px;
+}
