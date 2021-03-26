@@ -3,8 +3,8 @@ import '../../assets/css/login.css';
 import { Form, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {reqLogin} from '../../serviceAPI/login';
-import currentUser from '../../until/currentUser';
-import storageUntil from '../../until/storageUntil'
+import currentUser from '../../util/currentUser';
+import storageUtil from '../../util/storageUtil'
 import { Redirect } from 'react-router';
 
 class Login extends Component {
@@ -16,7 +16,7 @@ class Login extends Component {
         if(res.data.status === 0){
             message.success('登录成功')
             currentUser.user = res.data.data //保存在内存
-            storageUntil.saveUser(res.data.data)   //保存在local中
+            storageUtil.saveUser(res.data.data)   //保存在local中
             this.props.history.replace('/')
         }else {
             return message.error(res.data.msg)

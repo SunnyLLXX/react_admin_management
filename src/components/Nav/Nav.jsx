@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import '../../assets/css/nav.css'
 import { Menu } from 'antd';
 import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
   MailOutlined,
 } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
@@ -30,7 +25,7 @@ class Nav extends Component {
                 )
             }else {
                 //查找当前路径匹配的子路由，就展开SubMenu
-                const cItem = item.children.find(cItem=> cItem.key === path)
+                const cItem = item.children.find(cItem=> path.indexOf(cItem.key) === 0)
                 //如果存在，说明当前item的子列表需要展开
                 if(cItem){
                     this.openKey = item.key
@@ -52,7 +47,10 @@ class Nav extends Component {
     }
     render() {
         //获取当前请求路径
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        if(path.indexOf('/product') === 0){
+            path = '/product'
+        }
         //获取需要打开菜单项的key
         const openKey = this.openKey
         return (

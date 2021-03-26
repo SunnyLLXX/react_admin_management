@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import currentUser from './until/currentUser'
-import storageUntil from './until/storageUntil'
+import currentUser from './util/currentUser'
+import storageUtil from './util/storageUtil'
 
 //读取local中的user，保存到内存中
-currentUser.user = storageUntil.getUser()
+currentUser.user = storageUtil.getUser()
 ReactDOM.render(
     <App />,
   document.getElementById('root')

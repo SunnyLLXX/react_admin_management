@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect, Route, Switch} from 'react-router';
 import { Layout } from 'antd';
-import currentUser from '../../until/currentUser'
+import currentUser from '../../util/currentUser'
 import Nav from '../../components/Nav/Nav'
 import Head from '../../components/Head/Head'
 import Home from '../../pages/Home/Home'
@@ -31,7 +31,7 @@ class Admin extends Component {
                     </Sider>
                     <Layout>
                         <Head ></Head>
-                        <Content style={{backgroundColor:'#fff'}}>
+                        <Content style={{backgroundColor:'#fff',margin:'20px'}}>
                             <Switch>
                                 <Route path="/home" component={Home}></Route>
                                 <Route path="/category" component={Category}></Route>
