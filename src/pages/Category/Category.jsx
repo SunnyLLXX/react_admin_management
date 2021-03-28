@@ -87,26 +87,26 @@ class Category extends Component {
         })
     }
     addCancel = () => {
-        this.form.current.resetFields()
+        this.addform.current.resetFields()
         this.setState({
             isAddModalVisible: false
         })
     }
     updateCancel = () => {
-        this.form.current.resetFields()
+        this.updateform.current.resetFields()
         this.setState({
             isUpdateModalVisible: false
         })
     }
     addCategory = () => {
         //添加分类
-        this.form.current.validateFields().then(async (values)=>{
+        this.addform.current.validateFields().then(async (values)=>{
             console.log(values)
             const {parentId,categoryName} = values  
             console.log('添加分类')
             console.log(this.form)
             console.log(parentId,categoryName)
-            this.form.current.resetFields()
+            this.addform.current.resetFields()
             const res = await reqAddCategory({parentId,categoryName})
             if(res.data.status === 0){
                 message.success('添加分类成功')
@@ -134,7 +134,7 @@ class Category extends Component {
         //更新分类
         //表单验证
         
-        this.form.current.validateFields().then( async (values) => {
+        this.updateform.current.validateFields().then( async (values) => {
             console.log(values)
             const {categoryName} = values
             const categoryId = this.category._id
@@ -145,6 +145,8 @@ class Category extends Component {
             if(res.data.status === 0){
                 this.getCategoryList()
                 message.success('更新分类成功')
+            }else{
+                message.error("更新分类失败")
             }
             
             this.setState({
@@ -190,10 +192,10 @@ class Category extends Component {
             <Card title={title} extra={extra}>
                 <Table dataSource={parentId === '0' ? categoryList : subCategory} columns={columns} loading={loading} bordered rowKey="_id" pagination={{defaultPageSize:5,showQuickJumper:true}}/>;
                 <Modal title="添加分类" visible={isAddModalVisible} onOk={this.addCategory} onCancel={this.addCancel}>
-                    <AddForm categoryList={categoryList} parentId={parentId} setForm={(form)=>{this.form = form}}></AddForm>
+                    <AddForm categoryList={categoryList} parentId={parentId} setForm={(form)=>{this.addform = form}}></AddForm>
                 </Modal>
                 <Modal title="修改分类" visible={isUpdateModalVisible} onOk={this.updateCategory} onCancel={this.updateCancel}>
-                    <UpdateForm categoryName={category.name} setForm={(form)=>{this.form = form}}></UpdateForm>
+                    <UpdateForm categoryName={category.name} setForm={(form)=>{this.updateform = form}}></UpdateForm>
                 </Modal>
             </Card>
         );

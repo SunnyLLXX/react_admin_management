@@ -19,3 +19,7 @@ export const reqUpdateStatus = (productId,status) => request('/manage/product/up
 /**删除图片 */
 
 export const reqDeletePic = (name) => request('/manage/img/delete',{name},'POST')
+
+/**添加商品 */
+
+export const reqAddOrUpdateProduct = (data) => request('/manage/product/'+ (data._id ? 'update': 'add'),data,'POST')

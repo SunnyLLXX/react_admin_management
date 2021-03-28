@@ -20,6 +20,7 @@ class ProductIndex extends Component {
         this.columns = [
             {
               title: '商品名称',
+              width: 240,
               dataIndex: 'name',
               
             },
@@ -30,11 +31,13 @@ class ProductIndex extends Component {
             },
             {
               title: '价格',
+              width: 150,
               dataIndex: 'price',
               render: (price) => '¥'+ price
               
             },{
                 title: '状态',
+                width: 180,
                 render: (product) => {
                     const {status,_id} = product
                     const newStatus = status===1 ? 2 : 1
@@ -48,6 +51,7 @@ class ProductIndex extends Component {
                 
               },{
                 title: '操作',
+                width: 180,
                 render: (product) => {
                     return (
                         <span>
@@ -121,7 +125,7 @@ class ProductIndex extends Component {
         )
         return (
             <Card title={title} extra={extra} >
-                <Table loading={loading} dataSource={productList} columns={this.columns} bordered rowKey='_id' pagination={{defaultPageSize: 3,showQuickJumper:true,total:total,onChange:(pageNum)=>{this.getProduct(pageNum)}}}/>;
+                <Table loading={loading} dataSource={productList} columns={this.columns} bordered rowKey='_id' pagination={{defaultPageSize: 3,showQuickJumper:true,total:total,onChange:(pageNum)=>{this.getProduct(pageNum)}}}/>
             </Card>
         );
     }

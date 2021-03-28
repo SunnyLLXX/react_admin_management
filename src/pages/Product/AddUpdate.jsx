@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {Card, Form, Input, Cascader, Upload,Button} from 'antd'
+import {Card, Form, Input, Cascader, Button, message} from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {reqGetCategory} from '../../serviceAPI/category'
+import {reqAddOrUpdateProduct} from '../../serviceAPI/product'
 import PictureWall from './PictureWall'
+import RichText from './RichText'
+
 const { TextArea } = Input;
 //表单布局设置
 const layout = {
@@ -17,14 +20,37 @@ const layout = {
 class ProductAddUpdate extends Component {
 
     pictureRef = React.createRef()
-    formRef = React.createRef();
+    formRef = React.createRef()
+    richRef = React.createRef()
     state = {
         options: [],
     }
-    onFinish = (values) => {
+    onFinish = async (values) => {
         console.log(values)
+        const {name,desc,price,categoryIds} = values
+        let pCategoryId,categoryId
+        if(categoryIds.length === 1){
+            pCategoryId = '0'
+            categoryId = categoryIds[0]
+        }else{
+            pCategoryId = categoryIds[0]
+            categoryId = categoryIds[1]
+        }
         const imgs = this.pictureRef.current.getImgs()
         console.log('图片:',imgs)
+        const detail = this.richRef.current.getDetail()
+        console.log('detail:',detail)
+        const product = {name,desc,price,pCategoryId,categoryId,imgs,detail}
+        if(this.isUpdate){
+            product._id = this.product._id
+        }
+        const res = await reqAddOrUpdateProduct(product)
+        if(res.data.status === 0){
+            message.success(`${this.isUpdate ? '更新' : '添加'}商品成功`)
+            this.props.history.goBack()
+        }else{
+            message.error(`${this.isUpdate ? '更新' : '添加'}商品失败`)
+        }
     }
     getCategoryList = async (parentId) => {
         //获取分类（一级或二级）
@@ -52,11 +78,11 @@ class ProductAddUpdate extends Component {
         })
         //如果是二级商品分类的更新
         const {isUpdate,product} = this
-        const {pCategoryId,categoryId} = product
+        const {pCategoryId} = product
         if(isUpdate && pCategoryId !== '0'){
             //获取对应二级列表
             const subCategory = await this.getCategoryList(pCategoryId)
-            const childOption = subCategory.data.map((item) => {
+            const childOption = subCategory.map((item) => {
                 return {
                     value:item._id,
                     label: item.name,
@@ -125,7 +151,7 @@ class ProductAddUpdate extends Component {
     render() {
         
         const {isUpdate,product} = this
-        const {pCategoryId,categoryId,imgs} = product
+        const {pCategoryId,categoryId,imgs,detail} = product
         const {options} = this.state
         //用来接收级联分类数组
         const categoryIds = []
@@ -182,24 +208,21 @@ class ProductAddUpdate extends Component {
                         <Cascader options={options} loadData={this.loadData} />
                     </Form.Item>
                     <Form.Item
-                    name="imgs"
                     label="商品图片"
-                    
                     >
                         <PictureWall ref={this.pictureRef} imgs={imgs}></PictureWall>
                     </Form.Item>
-                    <Form.Item >
+                    
                     <Form.Item
-                    name="detail"
                     label="商品详情"
-                    rules={[{required: true,message:'商品价格必填哦'}]}
-                    initialValue={product.detail}
+                    wrapperCol={{span:20}}
                     >
-                        <Input placeholder='请输入商品详情' />
+                        <RichText ref={this.richRef} detail={detail}></RichText>
                     </Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        添加
-                    </Button>
+                    <Form.Item labelCol={{span:10}}>
+                        <Button type="primary" htmlType="submit">
+                            添加
+                        </Button>
                     </Form.Item>
                 </Form>
             </Card>

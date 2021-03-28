@@ -7,7 +7,7 @@ class UpdateForm extends Component {
 
 
     static propTypes = {
-        categoryName:PropTypes.string.isRequired,
+        categoryName:PropTypes.string,
         setForm: PropTypes.func.isRequired
     }
     formRef = React.createRef();

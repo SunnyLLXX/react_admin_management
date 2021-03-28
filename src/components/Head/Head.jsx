@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../../assets/css/head.css'
-import formateDate from '../../util/dateUtil'
 import currentUser from '../../util/currentUser'
 import storageUtil from '../../util/storageUtil'
 // import reqWeather from '../../serviceAPI/head'
@@ -13,19 +12,17 @@ import LinkButton from '../LinkButton/LinkButton'
 class Head extends Component {
     
     state = {
-        currentTime: formateDate(Date.now()), // 当前时间字符串
-        dayPictureUrl: '', //天气图片
-        weather: '' //天气文本
+        //currentTime: formateDate(Date.now()), // 当前时间字符串
     }
-    getCurrentTime = () => {
-        //每隔1s获取时间，并更新当前数据
-        this.interval = setInterval(() => {
-            const currenttime = formateDate(Date.now())
-            this.setState({
-                currentTime:currenttime
-            })
-        },1000)
-    }
+    // getCurrentTime = () => {
+    //     //每隔1s获取时间，并更新当前数据
+    //     this.interval = setInterval(() => {
+    //         const currenttime = formateDate(Date.now())
+    //         this.setState({
+    //             currentTime:currenttime
+    //         })
+    //     },1000)
+    // }
     // getWeather = async () => {
     //     //获取当前天气
     //     const {dayPictureUrl,weather} = await reqWeather('北京')
@@ -44,7 +41,7 @@ class Head extends Component {
             }else if(item.children){
                 //在所有的子item中查找
                 const cItem = item.children.find((cItem)=>{
-                    return cItem.key === path
+                    return path.indexOf(cItem.key)===0
                 })
                 if(cItem){
                     title = cItem.title
@@ -73,20 +70,19 @@ class Head extends Component {
     }
     componentDidMount(){
         //获取当前时间
-        this.getCurrentTime()
+        //this.getCurrentTime()
     }
     componentWillUnmount(){
         //清除定时器
-        clearInterval(this.interval)
+        //clearInterval(this.interval)
     }
     render() {
-        const {currentTime} = this.state
         const username = currentUser.user.username  //获取当前用户
         const title = this.getTitle()  //获得当前页面的title
         return (
             <div className="head">
                 <div className="head-top">
-                    <span className="welcome-span">欢迎,{username}</span>
+                    <span className="welcome-span">欢迎，{username}</span>
                     <LinkButton onClick={this.logout}>退出</LinkButton>
                 </div>
                 <div className="head-bottom">
@@ -94,11 +90,8 @@ class Head extends Component {
                         {title}
                     </div>
                     <div className="head-bottom-right">
-                        <span className="welcome-span">{currentTime}</span>
-                        
-                        <span>晴</span>
+                        <span>温柔对待世界，好好生活</span>
                     </div>
-                    
                 </div>
             </div>
         );

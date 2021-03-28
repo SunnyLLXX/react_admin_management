@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 class PictureWall extends Component {
 
     static propTypes = {
-        imgs: PropTypes.array.isRequired
+        imgs: PropTypes.array
     }
     state = {
         previewVisible:  false,

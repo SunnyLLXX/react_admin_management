@@ -18,6 +18,8 @@ const {  Footer, Sider, Content } = Layout;
 class Admin extends Component {
     componentWillMount(){
         const user = currentUser.user
+        console.log('当前用户')
+        console.log(user)
         // 如果当前没有登录，就去登录界面
         if(!user || !user.id){
             return <Redirect to="/login"></Redirect>
@@ -25,7 +27,7 @@ class Admin extends Component {
     }
     render() {
         return (
-                <Layout style={{height:'100%'}}>
+                <Layout style={{minHeight:'100%'}}>
                     <Sider>
                         <Nav></Nav>
                     </Sider>
