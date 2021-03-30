@@ -102,6 +102,7 @@ class ProductAddUpdate extends Component {
             options
         })
     }
+    
     /**自定义验证价格 */
     // validatePrice = (rule,value,callback) => {
     //     if(value*1 > 0){
