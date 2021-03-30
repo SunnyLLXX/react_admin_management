@@ -4,6 +4,7 @@ import {reqGetRoleList,reqAddRole,reqUpdateRole} from '../../serviceAPI/role'
 import AddRole from './AddRole'
 import AuthRole from './AuthRole'
 import currentUser from '../../util/currentUser'
+import storageUtil from '../../util/storageUtil'
 import formateDate from '../../util/dateUtil'
 
 
@@ -118,12 +119,26 @@ class Role extends Component {
         role.auth_time = Date.now()
         const res = await reqUpdateRole(role)
         if(res.data.status === 0){
-            
             this.getRoleList()
+            message.success('角色权限更新成功')
             this.setState({
                 isSetModalVisible: false
             })
-            message.success('角色权限更新成功')
+            
+            //如果当前更新的是自己角色的权限，强制退出
+            // if(role._id === currentUser.user.role_id){
+            //     currentUser.user = {}
+            //     storageUtil.removeUser()
+            //     message.success('角色权限已更新，请重新登录')
+            //     this.props.history.replace('/login')
+            // }else {
+            //     this.getRoleList()
+            //     message.success('角色权限更新成功')
+            // }
+            // this.setState({
+            //     isSetModalVisible: false
+            // })
+            
         }else {
             message.error('角色权限更新失败')
         }
@@ -157,7 +172,8 @@ class Role extends Component {
         
         return (
             <Card title={title}>
-                <Table loading={loading} dataSource={roleList} columns={this.columns} bordered rowKey='_id' rowSelection={{type:'radio',selectedRowKeys:[role._id]}} onRow={this.onTableRow}/>;
+                <Table loading={loading} dataSource={roleList} columns={this.columns} bordered rowKey='_id' rowSelection={{type:'radio',selectedRowKeys:[role._id],onSelect:(role)=>{this.setState({
+                    role})}}} onRow={this.onTableRow}/>;
 
                 <Modal title="创建角色" visible={isCreateModalVisible} onOk={this.createRole} onCancel={this.createCancel}>
                     <AddRole setForm={(form)=>{this.createform = form}}></AddRole>

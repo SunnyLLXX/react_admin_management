@@ -125,7 +125,7 @@ class ProductIndex extends Component {
         )
         return (
             <Card title={title} extra={extra} >
-                <Table loading={loading} dataSource={productList} columns={this.columns} bordered rowKey='_id' pagination={{defaultPageSize: 3,showQuickJumper:true,total:total,onChange:(pageNum)=>{this.getProduct(pageNum)}}}/>
+                <Table loading={loading} dataSource={productList} columns={this.columns} bordered rowKey='_id' pagination={{current:this.pageNum,defaultPageSize: 3,showQuickJumper:true,total:total,onChange:(pageNum)=>{this.getProduct(pageNum)}}}/>
             </Card>
         );
     }

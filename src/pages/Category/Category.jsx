@@ -140,7 +140,7 @@ class Category extends Component {
             const categoryId = this.category._id
             console.log('子组件传递的form对象')
             console.log(this.form)
-            this.form.current.resetFields()
+            this.updateform.current.resetFields()
             const res = await reqUpdateCategory({categoryId,categoryName})
             if(res.data.status === 0){
                 this.getCategoryList()
@@ -178,6 +178,8 @@ class Category extends Component {
         this.getCategoryList()
     }
     render() {
+        const category = this.category || {}
+        const columns = this.columns
         const {categoryList,loading,subCategory,parentId,parentName,isAddModalVisible,isUpdateModalVisible} = this.state
         const title = parentId === '0' ? '一级分类列表' : (<span>
             <LinkButton onClick={this.showCategoryList}>一级分类列表</LinkButton>
@@ -186,8 +188,7 @@ class Category extends Component {
         </span>)
         const extra = (<Button type="primary" icon={<PlusOutlined />} onClick={this.showAddModal}>添加</Button>)
         //读取指定分类
-        const category = this.category || {}
-        const columns = this.columns
+        
         return (
             <Card title={title} extra={extra}>
                 <Table dataSource={parentId === '0' ? categoryList : subCategory} columns={columns} loading={loading} bordered rowKey="_id" pagination={{defaultPageSize:5,showQuickJumper:true}}/>;

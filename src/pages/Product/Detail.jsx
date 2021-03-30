@@ -65,7 +65,7 @@ class Detail extends Component {
                     </Item>
                     <Item>
                         <span className="left">所属分类:</span>
-                        <span>{parentName}{parentName ? '--->'+ childName : ''}</span>
+                        <span>{parentName}{childName ? '--->'+ childName : ''}</span>
                     </Item>
                     <Item>
                         <span className="left">商品图片:</span>

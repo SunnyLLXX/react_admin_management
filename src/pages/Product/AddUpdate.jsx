@@ -68,7 +68,7 @@ class ProductAddUpdate extends Component {
     }
     initOptions = async (category) => {
         //初始化option
-        const options = category.map((item)=>{
+        let options = category.map((item)=>{
             return {
                 value:item._id,
                 label: item.name,
@@ -81,8 +81,8 @@ class ProductAddUpdate extends Component {
         const {pCategoryId} = product
         if(isUpdate && pCategoryId !== '0'){
             //获取对应二级列表
-            const subCategory = await this.getCategoryList(pCategoryId)
-            const childOption = subCategory.map((item) => {
+            let subCategory = await this.getCategoryList(pCategoryId)
+            let childOption = subCategory.map((item) => {
                 return {
                     value:item._id,
                     label: item.name,
@@ -90,14 +90,16 @@ class ProductAddUpdate extends Component {
                 }
             })
             //找到当前商品对应的一级option
-            const targetOption = options.find((item)=>{
+            let targetOption = options.find((item)=>{
                 return item.value === pCategoryId
             })
+            console.log('二级分类')
+            console.log(childOption)
             targetOption.children = childOption
         }
         
         this.setState({
-            options:[...options]
+            options
         })
     }
     /**自定义验证价格 */

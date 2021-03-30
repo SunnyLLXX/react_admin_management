@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
 import menuList from '../../config/menuConfig'
+import currentUser from '../../util/currentUser'
 const { SubMenu } = Menu;
 
 class Nav extends Component {
@@ -15,31 +16,48 @@ class Nav extends Component {
         //获取当前请求路径
         const path = this.props.location.pathname
         return menuList.map((item)=>{
-            if(!item.children){
-                return (
-                    <Menu.Item key={item.key} icon={<PieChartOutlined />}>
-                        <Link to={item.key}>
-                            {item.title}
-                        </Link>
-                    </Menu.Item>
-                )
-            }else {
-                //查找当前路径匹配的子路由，就展开SubMenu
-                const cItem = item.children.find(cItem=> path.indexOf(cItem.key) === 0)
-                //如果存在，说明当前item的子列表需要展开
-                if(cItem){
-                    this.openKey = item.key
+            //if(this.hasAuth(item)){
+                if(!item.children){
+                    return (
+                        <Menu.Item key={item.key} icon={<PieChartOutlined />}>
+                            <Link to={item.key}>
+                                {item.title}
+                            </Link>
+                        </Menu.Item>
+                    )
+                }else {
+                    //查找当前路径匹配的子路由，就展开SubMenu
+                    const cItem = item.children.find(cItem=> path.indexOf(cItem.key) === 0)
+                    //如果存在，说明当前item的子列表需要展开
+                    if(cItem){
+                        this.openKey = item.key
+                    }
+                    
+                    return (
+                        <SubMenu key={item.key} icon={<MailOutlined />} title={item.title}>
+                            {
+                                this.getMenuNodes(item.children)
+                            }
+                        </SubMenu>
+                    )
                 }
-                
-                return (
-                    <SubMenu key={item.key} icon={<MailOutlined />} title={item.title}>
-                        {
-                            this.getMenuNodes(item.children)
-                        }
-                    </SubMenu>
-                )
-            }
+            //}
+            
         })
+    }
+    hasAuth = (item) => {
+        //判断当前登录用户对item是否有权限
+        const {key,isPublic} = item
+        const menus = currentUser.user.role.menus
+        const username = currentUser.user.username
+        if(username === 'admin' || isPublic || menus.indexOf(key)!== -1){
+            return true
+        }else if(item.children){
+            return !!item.children.find((child)=>{
+                return menus.indexOf(child.key)!== -1
+            })
+        }
+        return false
     }
     componentWillMount(){
         //调用获取菜单列表函数

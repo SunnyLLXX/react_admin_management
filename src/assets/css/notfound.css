@@ -1,9 +1,8 @@
-.home {
+.not-found {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 50px;
 }
-.home-title {
+.content {
     margin-top: 200px;
 }
