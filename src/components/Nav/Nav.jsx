@@ -16,7 +16,7 @@ class Nav extends Component {
         //获取当前请求路径
         const path = this.props.location.pathname
         return menuList.map((item)=>{
-            //if(this.hasAuth(item)){
+            if(this.hasAuth(item)){
                 if(!item.children){
                     return (
                         <Menu.Item key={item.key} icon={<PieChartOutlined />}>
@@ -41,7 +41,7 @@ class Nav extends Component {
                         </SubMenu>
                     )
                 }
-            //}
+            }
             
         })
     }

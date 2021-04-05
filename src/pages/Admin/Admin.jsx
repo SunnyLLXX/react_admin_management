@@ -22,8 +22,9 @@ class Admin extends Component {
         console.log('当前用户')
         console.log(user)
         // 如果当前没有登录，就去登录界面
-        if(!user || !user.id){
-            return <Redirect to="/login"></Redirect>
+        if(!user || !user._id){
+            // return <Redirect to="/login"></Redirect>
+            this.props.history.replace('/login')
         }
     }
     render() {

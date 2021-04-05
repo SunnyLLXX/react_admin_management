@@ -12,7 +12,8 @@ class Login extends Component {
     onFinish = async (values)=>{
         console.log(values)
         const res = await reqLogin(values)
-        console.log(res)
+        console.log('登录成功')
+        console.log(res.data)
         if(res.data.status === 0){
             message.success('登录成功')
             currentUser.user = res.data.data //保存在内存
@@ -25,7 +26,7 @@ class Login extends Component {
     render() {
         //如果用户已经登录，自动跳转管理界面
         const user = currentUser.user
-        if(user || user.id){
+        if(user && user._id){
             return <Redirect to="/"></Redirect>
         }
         return (

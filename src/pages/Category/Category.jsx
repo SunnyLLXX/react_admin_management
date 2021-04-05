@@ -29,8 +29,8 @@ class Category extends Component {
               width: 300,
               render: (category) => (
                 <Space size="middle">
-                  <LinkButton onClick={()=>{this.showUpdateModal(category)}}>修改分类</LinkButton>
-                  {this.state.parentId === '0' ? <LinkButton onClick={()=>{this.getSubCategory(category)}}>查看子分类</LinkButton> : null}
+                  <LinkButton onClick={()=>{this.showUpdateModal(category)}} style={{color:'#3399ff'}}>修改分类</LinkButton>
+                  {this.state.parentId === '0' ? <LinkButton style={{color:'#00cc33'}} onClick={()=>{this.getSubCategory(category)}}>查看子分类</LinkButton> : null}
                   
                 </Space>
               ),

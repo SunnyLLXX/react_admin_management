@@ -47,8 +47,8 @@ class User extends Component {
                 title:'操作',
                 render: (user)=> (
                     <span>
-                        <LinkButton onClick={()=>{this.showUpdate(user)}}>修改</LinkButton>
-                        <LinkButton onClick={()=>{this.deleteUser(user)}}>删除</LinkButton>
+                        <LinkButton onClick={()=>{this.showUpdate(user)}} style={{color:'#3399ff'}}>修改</LinkButton>
+                        <LinkButton onClick={()=>{this.deleteUser(user)}} style={{color:'#ff6633'}}>删除</LinkButton>
                     </span>
                 )
             }

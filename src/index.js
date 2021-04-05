@@ -7,7 +7,8 @@ import currentUser from './util/currentUser'
 import storageUtil from './util/storageUtil'
 
 //读取local中的user，保存到内存中
-currentUser.user = storageUtil.getUser()
+const user = storageUtil.getUser()
+currentUser.user = user
 ReactDOM.render(
     <App />,
   document.getElementById('root')

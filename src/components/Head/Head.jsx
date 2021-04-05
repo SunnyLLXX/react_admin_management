@@ -82,8 +82,8 @@ class Head extends Component {
         return (
             <div className="head">
                 <div className="head-top">
-                    <span className="welcome-span">欢迎，{username}</span>
-                    <LinkButton onClick={this.logout}>退出</LinkButton>
+                    <span className="welcome-span">欢迎，<span style={{color:'#ff6633'}}>{username}</span></span>
+                    <LinkButton onClick={this.logout} style={{color:'#00cc33'}}>退出</LinkButton>
                 </div>
                 <div className="head-bottom">
                     <div className="head-bottom-left">

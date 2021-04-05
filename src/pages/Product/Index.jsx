@@ -55,8 +55,8 @@ class ProductIndex extends Component {
                 render: (product) => {
                     return (
                         <span>
-                            <LinkButton onClick={()=>{this.props.history.push('/product/detail',{product})}}>详情</LinkButton>
-                            <LinkButton onClick={()=>{this.props.history.push('/product/addupdate',{product})}}>修改</LinkButton>
+                            <LinkButton style={{color:'#00cc33'}} onClick={()=>{this.props.history.push('/product/detail',{product})}}>详情</LinkButton>
+                            <LinkButton style={{color:'#3399ff'}} onClick={()=>{this.props.history.push('/product/addupdate',{product})}}>修改</LinkButton>
                         </span>
                     )
                 }
