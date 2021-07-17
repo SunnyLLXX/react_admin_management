@@ -76,7 +76,6 @@ class ProductAddUpdate extends Component {
             }
             
         })
-        console.log('options', options)
         //如果是二级商品分类的更新
         const {isUpdate,product} = this
         if(isUpdate && product.product.pCategoryId !== '0'){
@@ -89,14 +88,11 @@ class ProductAddUpdate extends Component {
                     isLeaf: true
                 }
             })
-            console.log('product', product)
             //找到当前商品对应的一级option
             let targetOption = options.find((item)=>{
                 console.log('item.value', item.value)
                 return item.value === product.product.pCategoryId
             })
-            console.log('二级分类')
-            console.log('targetOption', targetOption)
             console.log(childOption)
             targetOption.children = childOption
         }
