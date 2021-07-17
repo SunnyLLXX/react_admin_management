@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Suspense, lazy} from 'react';
 import {Redirect, Route, Switch} from 'react-router';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import currentUser from '../../util/currentUser'
-import Nav from '../../components/Nav/Nav'
-import Head from '../../components/Head/Head'
-import Home from '../../pages/Home/Home'
-import Bar from '../../pages/Charts/Bar'
-import Line from '../../pages/Charts/Line'
-import Pie from '../../pages/Charts/Pie'
-import User from '../../pages/User/User'
-import Role from '../../pages/Role/Role'
-import Category from  '../../pages/Category/Category'
-import Product from '../../pages/Product/Product'
-import NotFound from '../../pages/NotFound/NotFound'
+/** import中加上 webpackPrefetch，浏览器会在空闲的时候加载组件*/
+const Nav = lazy(() => import(/*webpackPrefetch:true*/'../../components/Nav/Nav'));
+const Head = lazy(() => import(/*webpackChunkName:"head"*/'../../components/Head/Head'));
+const Home = lazy(() => import('../../pages/Home/Home'));
+const Bar = lazy(() => import('../../pages/Charts/Bar'));
+const Line = lazy(() => import('../../pages/Charts/Line'));
+const Pie = lazy(() => import('../../pages/Charts/Pie'));
+const User = lazy(() => import('../../pages/User/User'));
+const Role = lazy(() => import('../../pages/Role/Role'));
+const Category = lazy(() => import('../../pages/Category/Category'));
+const Product = lazy(() => import('../../pages/Product/Product'));
+const NotFound = lazy(() => import('../../pages/NotFound/NotFound'));
 const {  Footer, Sider, Content } = Layout;
 
-
-class Admin extends Component {
+class Admin extends PureComponent {
     componentWillMount(){
         const user = currentUser.user
         console.log('当前用户')
@@ -36,18 +36,20 @@ class Admin extends Component {
                     <Layout>
                         <Head ></Head>
                         <Content style={{backgroundColor:'#fff',margin:'20px'}}>
-                            <Switch>
-                                <Redirect  exact from='/' to='/home'></Redirect>
-                                <Route path="/home" component={Home}></Route>
-                                <Route path="/category" component={Category}></Route>
-                                <Route path="/product" component={Product}></Route>
-                                <Route path="/role" component={Role}></Route>
-                                <Route path="/user" component={User}></Route>
-                                <Route path="/charts/bar" component={Bar}></Route>
-                                <Route path="/charts/line" component={Line}></Route>
-                                <Route path="/charts/pie" component={Pie}></Route>
-                                <Route component={NotFound}></Route>
-                            </Switch>
+                            <Suspense fallback={<div style={{textAlign: 'center',margin:'200px auto', width: '100%', height: '100%'}}><Spin></Spin></div>}>
+                                <Switch>
+                                    <Redirect  exact from='/' to='/home'></Redirect>
+                                    <Route path="/home" component={Home}></Route>
+                                    <Route path="/category" component={Category}></Route>
+                                    <Route path="/product" component={Product}></Route>
+                                    <Route path="/role" component={Role}></Route>
+                                    <Route path="/user" component={User}></Route>
+                                    <Route path="/charts/bar" component={Bar}></Route>
+                                    <Route path="/charts/line" component={Line}></Route>
+                                    <Route path="/charts/pie" component={Pie}></Route>
+                                    <Route component={NotFound}></Route>
+                                </Switch>
+                            </Suspense>    
                         </Content>
                         <Footer style={{textAlign:'center',color:'#ccc'}}>推荐使用谷歌浏览器，可以获取更佳用户体验哦</Footer>
                     </Layout>

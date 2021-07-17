@@ -1,7 +1,7 @@
 import { Button } from 'antd';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import '../../assets/css/notfound.css'
-class NotFound extends Component {
+class NotFound extends PureComponent {
 
     goHome = ()=>{
         this.props.history.replace('/home')

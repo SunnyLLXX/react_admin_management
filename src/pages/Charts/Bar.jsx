@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {Card, Button} from 'antd'
 import ReactEcharts from 'echarts-for-react'
 
-class Bar extends Component {
+class Bar extends PureComponent {
 
     state = {
         sales: [5, 20, 36, 10, 10, 20],

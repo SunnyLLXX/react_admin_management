@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {Card, Button} from 'antd'
 import ReactEcharts from 'echarts-for-react'
 
-class Pie extends Component {
+class Pie extends PureComponent {
 
     getOption = () => {
         //返回图形配置对象

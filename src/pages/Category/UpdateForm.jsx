@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import { Form, Input } from 'antd';
 
 
-class UpdateForm extends Component {
+class UpdateForm extends PureComponent {
 
 
     static propTypes = {

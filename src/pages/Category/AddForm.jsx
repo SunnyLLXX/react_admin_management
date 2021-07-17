@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Form, Input, Select } from 'antd';
 import PropTypes from 'prop-types'
 const { Option } = Select;
 
-class AddForm extends Component {
+class AddForm extends PureComponent {
 
     static propTypes = {
         categoryList:PropTypes.array.isRequired,

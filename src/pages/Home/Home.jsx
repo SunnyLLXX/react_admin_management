@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import '../../assets/css/home.css'
 
-class Home extends Component {
+class Home extends PureComponent {
     render() {
         return (
             <div className="home">
-                <h1 className="home-title">welcome</h1>
-                
+                <h1 className="home-title">welcome</h1>    
             </div>
         );
     }
